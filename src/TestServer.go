@@ -9,7 +9,7 @@ var (
 	socketSrv *socket.SocketServer
 )
 
-func main() {
+func main() { 
 	config := socket.NewConfig()
 	config.CloseingTimeout = 10000
 	config.HeartbeatTimeout = 1000 * 30
