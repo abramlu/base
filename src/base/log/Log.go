@@ -6,8 +6,8 @@ import (
 )
 
 const (
-	Console = "console"
-	File    = "file"
+	Console = "console" //控制台输出
+	File    = "file"    // 文件输出
 )
 
 const (

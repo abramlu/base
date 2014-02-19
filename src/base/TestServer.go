@@ -1,20 +1,44 @@
 package main
 
 import (
-	//"base/protocol"
 	"base/socket"
+	"log"
 )
 
 var (
-	socketSrv *socket.SocketServer
+	socketSrv *socket.Server
 )
 
-func main() { 
+func main() {
 	config := socket.NewConfig()
 	config.CloseingTimeout = 10000
-	config.HeartbeatTimeout = 1000 * 30
-	config.Addr = "0.0.0.0:9000"
-	socketSrv = socket.NewSocketServer(config)
+	config.Addr = "127.0.0.1:9000"
+	config.CodecFactory = socket.NewDefaultCodecFactory()
+	config.ConnectedHandler = connectedHandler
+	config.DisconnectHandler = disconnectedHandler
+	config.MessageHandler = messageHandler
+
+	var err error
+	socketSrv, err = socket.NewServer(config)
+	if err != nil {
+		log.Println(err)
+	}
 	socketSrv.Start()
 
+}
+
+func messageHandler(protoPack *socket.ProtoPack) {
+	log.Println("Id:", protoPack.Id)
+	log.Println("Iscompressed:", protoPack.Iscompressed)
+	log.Println("Isencryted:", protoPack.Isencrypted)
+	log.Println("PlatformId:", protoPack.PlatformId)
+	log.Println("Body:", protoPack.Body)
+}
+
+func connectedHandler(channel socket.IChannel) {
+	log.Println("客户端已连接。")
+}
+
+func disconnectedHandler(channel socket.IChannel) {
+	log.Println("客户端已断开连接。")
 }

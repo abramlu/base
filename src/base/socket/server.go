@@ -1,10 +1,9 @@
 package socket
 
 import (
-	"base/protocol"
-	//"fmt"
+	//"bytes"
+	"errors"
 	"log"
-	"net"
 	"sync"
 	"time"
 )
@@ -15,149 +14,154 @@ var (
 )
 
 const (
-	Heartbeat_timeout     = 15000     //心跳超时
-	Closing_timeout       = 10000     // 关闭超时
-	Session_maintain_time = 1000 * 60 //session的维护周期
-	Listening_port        = 8888      //默认监听的端口
+	Closing_timeout = 10000 // 关闭超时
+	Listening_port  = 8888  //默认监听的端口
 )
 
 type Config struct {
-	HeartbeatTimeout int
-	CloseingTimeout  int
-	Addr             string
-	CheckSessionTime int //检查session
-	MessageHandler   func(protoPack *protocol.ProtoPack)
+	CloseingTimeout   time.Duration //关闭连接的超时时间
+	Addr              string        //监听地址
+	CodecFactory      ICodecFactory
+	ConnectedHandler  func(channel IChannel)
+	DisconnectHandler func(channel IChannel)
+	MessageHandler    func(protoPack *ProtoPack) //业务处理函数
 }
 
+/**
+ * 生成一个socket 配置对象
+ * @author abram
+ */
 func NewConfig() *Config {
 	return &Config{}
 }
 
-type SocketSession struct {
-	conn              *net.Conn
-	connectedTime     int64
-	lastHeartbeatTime int64
+/**
+ * socket 服务对象
+ * @author abram
+ */
+type Server struct {
+	stopped          bool
+	closingTimeout   time.Duration
+	addr             string
+	codecFactory     ICodecFactory
+	mutex            sync.RWMutex
+	serverSocket     *ServerSocket
+	connectedHandler func(channel IChannel)
+	disconnectHanler func(channel IChannel)
+	messageHandler   func(protoPack *ProtoPack)
 }
 
-type SocketServer struct {
-	heartbeatTimeout    int
-	closingTimeout      int
-	sessionMaintainTime int
-	addr                string
-	mutex               sync.RWMutex
-	sessions            map[int]*SocketSession
-	listener            *net.TCPListener
-	messageHandler      func(protoPack *protocol.ProtoPack)
-}
-
-func NewSocketServer(config *Config) *SocketServer {
-	server := &SocketServer{}
-	if config != nil {
-		server.closingTimeout = config.CloseingTimeout
-		server.heartbeatTimeout = config.HeartbeatTimeout
-		server.addr = config.Addr
-		server.messageHandler = config.MessageHandler
-		server.sessionMaintainTime = config.CheckSessionTime
+/**
+ * 生成SocketServer 对象
+ * @param config
+ * @return SocketServer
+ */
+func NewServer(config *Config) (*Server, error) {
+	if config == nil {
+		return nil, errors.New("config 不能为空。")
+	}
+	if config.ConnectedHandler == nil {
+		return nil, errors.New("config.ConnectedHandler 不能为空。")
 	}
 
-	if server.heartbeatTimeout == 0 {
-		server.heartbeatTimeout = Heartbeat_timeout
+	if config.DisconnectHandler == nil {
+		return nil, errors.New("config.DisconnectHandler 不能为空。")
 	}
+
+	if config.MessageHandler == nil {
+		return nil, errors.New("config.MessageHandler 不能为空。")
+	}
+
+	server := &Server{}
+
+	server.closingTimeout = config.CloseingTimeout
+	server.addr = config.Addr
+	server.codecFactory = config.CodecFactory
+	server.connectedHandler = config.ConnectedHandler
+	server.messageHandler = config.MessageHandler
+	server.disconnectHanler = config.DisconnectHandler
 
 	if server.closingTimeout == 0 {
 		server.closingTimeout = Closing_timeout
 	}
 
-	server.sessions = make(map[int]*SocketSession)
-	return server
+	serverSocket, err := NewServerSocket(server.addr)
+	if err != nil {
+		return nil, err
+	}
+	server.serverSocket = serverSocket
+	server.stopped = true
+	return server, nil
 }
 
 /**
  * 启动服务器
  * @author abram
  */
-func (this *SocketServer) Start() error {
-	tcpAddr, err := net.ResolveTCPAddr(tcp, this.addr)
-	if err != nil {
-		log.Fatal("服务器监听IP设置错误，信息：" + err.Error())
-		return err
+func (server *Server) Start() error {
+	if !server.stopped {
+		return errors.New("服务已经启动。")
 	}
 
-	listener, err := net.ListenTCP(tcp, tcpAddr)
-
+	server.stopped = false
+	err := server.serverSocket.Listen()
 	if err != nil {
-		log.Fatal("启动服务器错误，信息：" + err.Error())
 		return err
 	}
-	this.listener = listener
-	defer listener.Close()
-	go func() {
-		for {
-			conn, err := listener.Accept()
-			if err != nil {
-				log.Println("客户端接入错误，信息：" + err.Error())
-				continue
-			}
-
-			go this.connectionHandler(conn)
+	log.Println("开始监听...")
+	for !server.stopped {
+		client, err := server.serverSocket.Accept()
+		if err != nil {
+			log.Println("Accept err: ", err)
 		}
-	}()
+		if client != nil {
+			go func() {
+				if err := server.connectionHandler(client); err != nil {
+					log.Println("Error processing request:", err)
+				}
+			}()
+		}
+	}
 
-	go this.sessionMaintainHandler(this.sessionMaintainTime)
-	log.Println("===服务器启动成功。")
 	return nil
 }
 
 /**
  * 客户端接入管理
  * @author abram
+ * @param client ITransport 实际类型是Socket
  */
-func (this *SocketServer) connectionHandler(conn net.Conn) {
+func (server *Server) connectionHandler(client ITransport) error {
+	transport := NewFramedTransport(client)
+	codec := server.codecFactory.GetCodec(transport)
+	channel := NewDefaultChannel(client, codec)
 
-}
+	defer func() {
+		if server.disconnectHanler != nil {
+			server.disconnectHanler(channel)
+		}
+		channel.Close()
+		time.Sleep(500)
+	}()
 
-/**
- * 添加session
- * @author abram
- * @param key 一般使用userId
- * @param session SocketSession
- */
-func (this *SocketServer) AddSession(key int, session *SocketSession) {
+	server.connectedHandler(channel)
+	for {
+		protoPack, err := codec.Decode()
+		if err != nil {
+			break
+		}
+		go server.messageHandler(protoPack)
+	}
 
-}
-
-/**
- * 移除session
- * @author abram
- * @param key 一般使用userId
- * @return SocketSession 当指定的SocketSession 不存在时返回nil
- */
-func (this *SocketServer) RemoveSession(key int) *SocketSession {
 	return nil
-}
-
-/**
- * 获取session长度
- * @author abram
- * @return int
- */
-func (this *SocketServer) GetSessionSize() int {
-	return 0
 }
 
 /**
  * 关闭服务
  * @author abram
  */
-func (this *SocketServer) Close() {
-
-}
-
-/**
- * 维护session的协程
- * @author abram
- * @param time 检查周期
- */
-func (this *SocketServe) sessionMaintainHandler(time int) {
-
+func (server *Server) Stop() error {
+	server.stopped = true
+	server.serverSocket.Interrupt()
+	return nil
 }
