@@ -36,8 +36,14 @@ func (channel *DefaultChannel) Write(data interface{}) error {
 	return errors.New("错误的数据。")
 }
 
+// 关闭连接
 func (channel *DefaultChannel) Close() error {
 	return channel.codec.Close()
+}
+
+//把缓存中的数据写出去，然后再关闭连接
+func (channel *DefaultChannel) FlushAndClose() error {
+	return channel.codec.FlushAndClose()
 }
 
 func (channel *DefaultChannel) IsOpen() bool {

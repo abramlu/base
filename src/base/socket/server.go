@@ -24,7 +24,7 @@ type Config struct {
 	CodecFactory      ICodecFactory
 	ConnectedHandler  func(channel IChannel)
 	DisconnectHandler func(channel IChannel)
-	MessageHandler    func(protoPack *ProtoPack) //业务处理函数
+	MessageHandler    func(channel IChannel, protoPack *ProtoPack) //业务处理函数
 }
 
 /**
@@ -48,7 +48,7 @@ type Server struct {
 	serverSocket     *ServerSocket
 	connectedHandler func(channel IChannel)
 	disconnectHanler func(channel IChannel)
-	messageHandler   func(protoPack *ProtoPack)
+	messageHandler   func(channel IChannel, protoPack *ProtoPack)
 }
 
 /**
@@ -150,7 +150,7 @@ func (server *Server) connectionHandler(client ITransport) error {
 		if err != nil {
 			break
 		}
-		go server.messageHandler(protoPack)
+		go server.messageHandler(channel, protoPack)
 	}
 
 	return nil

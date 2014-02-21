@@ -25,7 +25,7 @@ func main() {
 
 }
 
-func messageHandler(protoPack *socket.ProtoPack) {
+func messageHandler(channel socket.IChannel, protoPack *socket.ProtoPack) {
 
 }
 

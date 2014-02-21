@@ -27,12 +27,14 @@ func main() {
 
 }
 
-func messageHandler(protoPack *socket.ProtoPack) {
+func messageHandler(channel socket.IChannel, protoPack *socket.ProtoPack) {
 	log.Println("Id:", protoPack.Id)
 	log.Println("Iscompressed:", protoPack.Iscompressed)
 	log.Println("Isencryted:", protoPack.Isencrypted)
 	log.Println("PlatformId:", protoPack.PlatformId)
 	log.Println("Body:", protoPack.Body)
+
+	channel.Close()
 }
 
 func connectedHandler(channel socket.IChannel) {

@@ -52,6 +52,7 @@ type ICodec interface {
 	ReadBinary() ([]byte, error)
 
 	Close() error
+	FlushAndClose() error
 }
 
 /**
@@ -272,4 +273,8 @@ func (codec *DefaultCodec) Flush() error {
 
 func (codec *DefaultCodec) Close() error {
 	return codec.transport.Close()
+}
+
+func (codec *DefaultCodec) FlushAndClose() error {
+	return codec.FlushAndClose()
 }

@@ -85,6 +85,13 @@ func (transport *FramedTransport) Peek() bool {
 	return transport.socket.Peek()
 }
 
+func (transport *FramedTransport) FlushAndClose(flush bool) error {
+	if err := transport.Flush(); err != nil {
+		return err
+	}
+	return transport.socket.Close()
+}
+
 func (transport *FramedTransport) Close() error {
 	return transport.socket.Close()
 }

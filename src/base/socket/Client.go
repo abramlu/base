@@ -15,9 +15,9 @@ type Client struct {
 	codecFactory      ICodecFactory
 	mutex             sync.RWMutex
 	socket            *Socket
-	connectedHandler  func(channel IChannel)     //连接建立事件
-	disconnectHandler func(channel IChannel)     //连接断开事件
-	messageHandler    func(protoPack *ProtoPack) //消息处理逻辑
+	connectedHandler  func(channel IChannel)                       //连接建立事件
+	disconnectHandler func(channel IChannel)                       //连接断开事件
+	messageHandler    func(channel IChannel, protoPack *ProtoPack) //消息处理逻辑
 }
 
 // 生成一个客户端对象
@@ -116,7 +116,7 @@ func (client *Client) connectionHandler() error {
 		if err != nil {
 			break
 		}
-		go client.messageHandler(protoPack)
+		go client.messageHandler(channel, protoPack)
 	}
 
 	return err

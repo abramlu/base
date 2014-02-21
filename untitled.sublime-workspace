@@ -4,6 +4,230 @@
 		"selected_items":
 		[
 			[
+				"NEWc",
+				"NewConfig	*socket.Config ƒ"
+			],
+			[
+				"I",
+				"ICodec	interface ¡"
+			],
+			[
+				"Def",
+				"DefaultCodec	struct ʈ"
+			],
+			[
+				"con",
+				"connectionHandler	error ƒ"
+			],
+			[
+				"o",
+				"Open	error ƒ"
+			],
+			[
+				"News",
+				"NewSocketFromAddrTimeout	*Socket, error ƒ"
+			],
+			[
+				"s",
+				"stopped	bool ν"
+			],
+			[
+				"c",
+				"closingTimeout	time.Duration ν"
+			],
+			[
+				"De",
+				"DefaultChannel	struct ʈ"
+			],
+			[
+				"Defa",
+				"DefaultChannel	struct ʈ"
+			],
+			[
+				"P",
+				"ProtoPack	struct ʈ"
+			],
+			[
+				"fl",
+				"Float64bits	uint64 ƒ"
+			],
+			[
+				"write",
+				"writeInt16	error ƒ"
+			],
+			[
+				"w",
+				"writeByte	error ƒ"
+			],
+			[
+				"read",
+				"readByte	byte, error ƒ"
+			],
+			[
+				"is",
+				"Isencrypted	byte ν"
+			],
+			[
+				"reads",
+				"readStringBody	string, error ƒ"
+			],
+			[
+				"rea",
+				"ReadFull	n int, err error ƒ"
+			],
+			[
+				"err",
+				"err	error ν"
+			],
+			[
+				"pu",
+				"PutUint64	 ƒ"
+			],
+			[
+				"wr",
+				"writeByte	error ƒ"
+			],
+			[
+				"u",
+				"Uint64	uint64 ƒ"
+			],
+			[
+				"Float",
+				"Float64frombits	float64 ƒ"
+			],
+			[
+				"un",
+				"Uint64	uint64 ƒ"
+			],
+			[
+				"B",
+				"BigEndian	binary.bigEndian ν"
+			],
+			[
+				"b",
+				"BigEndian	binary.bigEndian ν"
+			],
+			[
+				"re",
+				"readByte	byte, error ƒ"
+			],
+			[
+				"Defau",
+				"DefaultCodec	struct ʈ"
+			],
+			[
+				"im",
+				"import	import (...) ʂ"
+			],
+			[
+				"wri",
+				"WriteTo	n int64, err error ƒ"
+			],
+			[
+				"bu",
+				"NewBuffer	*bytes.Buffer ƒ"
+			],
+			[
+				"in",
+				"Interrupt	error ƒ"
+			],
+			[
+				"Prin",
+				"Println	 ƒ"
+			],
+			[
+				"a",
+				"Accept	Socket, error ƒ"
+			],
+			[
+				"l",
+				"Listen	error ƒ"
+			],
+			[
+				"so",
+				"serverSocket	ServerSocket ν"
+			],
+			[
+				"newS",
+				"NewServerSocket	*ServerSocket, error ƒ"
+			],
+			[
+				"Server",
+				"ServerSocket	struct ʈ"
+			],
+			[
+				"ADD",
+				"addr	net.Addr ν"
+			],
+			[
+				"NewSocket",
+				"NewSocketFromConnTimeout	*Socket, error ƒ"
+			],
+			[
+				"L",
+				"listener	net.Listener ν"
+			],
+			[
+				"NewSer",
+				"NewServerSocketTimeout	*ServerSocket, error ƒ"
+			],
+			[
+				"news",
+				"NewSocketTimeout	*Socket, error ƒ"
+			],
+			[
+				"res",
+				"ResolveTCPAddr	*net.TCPAddr, error ƒ"
+			],
+			[
+				"List",
+				"Listener	interface ¡"
+			],
+			[
+				"Dia",
+				"DialTimeout	net.Conn, error ƒ"
+			],
+			[
+				"Sock",
+				"Socket	struct ʈ"
+			],
+			[
+				"R",
+				"ResolveTCPAddr	*net.TCPAddr, error ƒ"
+			],
+			[
+				"Socket",
+				"Socket	struct ʈ"
+			],
+			[
+				"new",
+				"NewDefaultCodec	*DefaultCodec ƒ"
+			],
+			[
+				"IS",
+				"Isencrypted	byte ν"
+			],
+			[
+				"byte",
+				"byteData	[]byte ν"
+			],
+			[
+				"readb",
+				"ReadBytes	line []byte, err error ƒ"
+			],
+			[
+				"m",
+				"messageHandler	func(protoPack *protocol.ProtoPack) ν"
+			],
+			[
+				"head",
+				"headerVal	int32 ν"
+			],
+			[
+				"ReadW",
+				"ReadWriteCloser	interface ¡"
+			],
+			[
 				"New",
 				"NewLogger	*BeeLogger ƒ"
 			],
@@ -40,18 +264,6 @@
 				"OpenFile	file *os.File, err error ƒ"
 			],
 			[
-				"w",
-				"Write	n int, err error ƒ"
-			],
-			[
-				"s",
-				"SetLogger	error ƒ"
-			],
-			[
-				"new",
-				"NewLogger	*BeeLogger ƒ"
-			],
-			[
 				"imp",
 				"import	import (...) ʂ"
 			],
@@ -70,10 +282,6 @@
 			[
 				"sp",
 				"Sprintf	string ƒ"
-			],
-			[
-				"a",
-				"adapters	map[string]loggerType ν"
 			],
 			[
 				"adapter",
@@ -120,10 +328,6 @@
 				"Fatal	 ƒ"
 			],
 			[
-				"wri",
-				"WriteString	ret int, err error ƒ"
-			],
-			[
 				"fa",
 				"Fatal	 ƒ"
 			],
@@ -142,18 +346,6 @@
 			[
 				"pr",
 				"Println	n int, err error ƒ"
-			],
-			[
-				"wr",
-				"WriteString	ret int, err error ƒ"
-			],
-			[
-				"im",
-				"imp	Import"
-			],
-			[
-				"in",
-				"IniConfigContainer	struct ʈ"
 			],
 			[
 				"Ini",
@@ -180,10 +372,6 @@
 				"TrimLeftFunc	[]byte ƒ"
 			],
 			[
-				"b",
-				"bComment	[]byte ν"
-			],
-			[
 				"ad",
 				"adapterName	string ν"
 			],
@@ -206,38 +394,11 @@
 			[
 				"main",
 				"func main	func main {...} ʂ"
-			],
-			[
-				"Socket",
-				"SocketServer	struct ʈ"
-			],
-			[
-				"Sock",
-				"SocketServer	struct ʈ"
 			]
 		]
 	},
 	"buffers":
 	[
-		{
-			"file": "src/base/socket/server.go",
-			"settings":
-			{
-				"buffer_size": 2983,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"contents": "package main\n\nimport (\n	//\"base/protocol\"\n	\"base/socket\"\n)\n\nvar (\n	socketSrv *socket.SocketServer\n)\n\nfunc main() { \n	config := socket.NewConfig()\n	config.CloseingTimeout = 10000\n	config.HeartbeatTimeout = 1000 * 30\n	config.Addr = \"0.0.0.0:9000\"\n	socketSrv = socket.NewSocketServer(config)\n	socketSrv.Start()\n\n}\n",
-			"file": "src/base/TestServer.go",
-			"file_size": 311,
-			"file_write_time": 130365613530000000,
-			"settings":
-			{
-				"buffer_size": 311,
-				"line_ending": "Unix"
-			}
-		}
 	],
 	"build_system": "Packages/GoSublime/GoSublime.sublime-build",
 	"command_palette":
@@ -288,7 +449,32 @@
 	},
 	"file_history":
 	[
+		"/Users/abram/gospace/base/src/base/socket/Codec.go",
+		"/Users/abram/gospace/base/src/base/socket/Channel.go",
+		"/Users/abram/gospace/base/src/base/socket/protocols.go",
+		"/Users/abram/gospace/base/src/base/socket/FramedTransport.go",
+		"/Users/abram/gospace/base/src/base/socket/Client.go",
+		"/Users/abram/gospace/base/src/base/socket/Server.go",
+		"/Users/abram/gospace/base/src/base/TestServer.go",
+		"/Users/abram/gospace/base/src/base/socket/CodecFactory.go",
 		"/Users/abram/Library/Application Support/Sublime Text 3/Packages/User/GoSublime.sublime-settings",
+		"/Users/abram/gospace/base/src/base/socket/ServerSocket.go",
+		"/Users/abram/gospace/base/src/base/base",
+		"/Users/abram/gospace/base/src/base/TestClient.go",
+		"/Users/abram/gospace/base/src/base/socket/Socket.go",
+		"/Users/abram/gospace/base/bin/base",
+		"/Users/abram/gospace/base/src/base/socket/ClientSocket.go",
+		"/Users/abram/gospace/base/src/base/socket/ITransport.go",
+		"/Users/abram/gospace/base/src/base/protocol/untitled",
+		"/Users/abram/gospace/base/src/base/log/File_test.go",
+		"/Users/abram/gospace/base/src/base/protocol/CodecFactory.go",
+		"/Users/abram/gospace/base/src/base/protocol/codec.go",
+		"/Users/abram/gospace/base/src/base/socket/SocketSession.go",
+		"/Users/abram/gospace/base/src/base/protocol/protocols.go",
+		"/Users/abram/gospace/base/src/base/log/Log.go",
+		"/Users/abram/gospace/base/src/base/socket/channel.go",
+		"/Users/abram/gospace/base/untitled.sublime-project",
+		"/Users/abram/gospace/base/untitled.sublime-workspace",
 		"/Users/abram/Library/Application Support/Sublime Text 3/Packages/Default/Preferences.sublime-settings",
 		"/Users/abram/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings",
 		"/Users/abram/Library/Application Support/Sublime Text 3/Packages/GoSublime/GoSublime.sublime-settings",
@@ -353,66 +539,8 @@
 	"groups":
 	[
 		{
-			"selected": 1,
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": "src/base/socket/server.go",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2983,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2316,
-								2316
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/GoSublime/syntax/GoSublime-Go.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "src/base/TestServer.go",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 311,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								153,
-								153
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/GoSublime/syntax/GoSublime-Go.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				}
 			]
 		}
 	],
@@ -459,9 +587,17 @@
 	{
 		"height": 247.0
 	},
+	"output.9o:///Users/abram/gospace/base/src/base":
+	{
+		"height": 217.0
+	},
+	"output.9o:///Users/abram/gospace/base/src/base/protocol":
+	{
+		"height": 367.0
+	},
 	"output.9o:///Users/abram/gospace/base/src/base/socket":
 	{
-		"height": 228.0
+		"height": 178.0
 	},
 	"output.9o:///Users/abram/gospace/socket/protocol":
 	{
@@ -536,7 +672,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 311.0,
+	"side_bar_width": 273.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{
