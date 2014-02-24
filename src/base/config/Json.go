@@ -161,5 +161,5 @@ func (this *JsonConfigContainer) DIY(key string) (v interface{}, err error) {
 }
 
 func init() {
-	Register("json", &JsonConfig{})
+	Register(Json, &JsonConfig{})
 }

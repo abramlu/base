@@ -4,6 +4,13 @@ import (
 	"fmt"
 )
 
+var (
+	Ini  string = "ini"
+	Json string = "json"
+	Xml  string = "xml"
+	Yaml string = "yaml"
+)
+
 /**
  * ConfigContainer 定义怎样设置和获取数据
  * @author abram

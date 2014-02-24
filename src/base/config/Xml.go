@@ -80,5 +80,5 @@ func (this *XMLConfigContainer) DIY(key string) (v interface{}, err error) {
 }
 
 func init() {
-	Register("xml", &XMLConfig{})
+	Register(Xml, &XMLConfig{})
 }

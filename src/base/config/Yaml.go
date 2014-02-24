@@ -123,5 +123,5 @@ func (this *YAMLConfigContainer) DIY(key string) (v interface{}, err error) {
 }
 
 func init() {
-	Register("yaml", &YAMLConfig{})
+	Register(Yaml, &YAMLConfig{})
 }

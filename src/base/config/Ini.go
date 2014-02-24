@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"bytes"
 	"errors"
-	"fmt"
 	"io"
 	"os"
 	"strconv"
@@ -101,7 +100,6 @@ func (this *IniConfig) Parse(name string) (ConfigContainer, error) {
 				cfg.data[section] = make(map[string]string)
 			}
 
-			fmt.Println(string(line))
 			keyval := bytes.SplitN(line, bEqual, 2)
 			val := bytes.TrimSpace(keyval[1])
 			if bytes.HasPrefix(val, bDQuote) {
@@ -158,7 +156,7 @@ func (this *IniConfigContainer) DIY(key string) (v interface{}, err error) {
 }
 
 func init() {
-	Register("ini", &IniConfig{})
+	Register(Ini, &IniConfig{})
 }
 
 func (this *IniConfigContainer) Bool(key string) (bool, error) {
